@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<canvas id = "canvas"></canvas>
+</body>
+<script type="text/javascript">
+	var canvas = document.getElementById("canvas");
+	canvas.width = 600;
+    canvas.height = 600;
+	
+	function draw(){
+
+		var ctx = canvas.getContext("2d");
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		ctx.beginPath();
+		ctx.lineWidth = 4;
+		ctx.strokeStyle = "#999";
+		ctx.arc(100,100,58,0,Math.PI*2,true);
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.lineWidth = 2;
+		ctx.strokeStyle = "gray";
+		ctx.arc(100,100,54,0,Math.PI*2,true);
+		ctx.stroke();
+	
+		var date = new Date();
+		var seconds = date.getSeconds();
+		var angle = seconds/60 * Math.PI*2;
+		
+		ctx.beginPath();
+		ctx.lineWidth = 3;
+		ctx.strokeStyle = "red";
+		ctx.moveTo(100 - 10 * Math.sin(angle),100 + 10 * Math.cos(angle));
+		ctx.lineTo(100 + 50 * Math.sin(angle),100 - 50 * Math.cos(angle));
+		ctx.stroke();	
+
+		var minutes = date.getMinutes();
+		angle = minutes/60 * Math.PI*2;
+		
+		ctx.beginPath();
+		ctx.lineWidth = 6;
+		ctx.strokeStyle = "black";
+		ctx.moveTo(100,100);
+		ctx.lineTo(100 + 43 * Math.sin(angle),100 - 43 * Math.cos(angle));
+		ctx.stroke();
+
+		var hour = date.getHours();
+		angle = hour/12 * Math.PI*2;
+		
+		ctx.beginPath();
+		ctx.lineWidth = 8;
+		ctx.strokeStyle = "black";
+		ctx.moveTo(100 - 5 * Math.sin(angle),100 + 5 * Math.cos(angle));
+		ctx.lineTo(100 + 36 * Math.sin(angle),100 - 36 * Math.cos(angle));
+		ctx.stroke();		
+		
+		ctx.beginPath();
+		ctx.lineWidth = 3;
+		ctx.strokeStyle = "#ddd";
+		ctx.arc(100,100,5,0,Math.PI*2,true);
+		ctx.stroke();
+
+		ctx.font="10px Verdana";
+		for(var i = 1; i <= 12; i ++){
+			angle = Math.PI * 2/12 * i;
+			ctx.fillText(i,96 + 47 * Math.sin(angle),104 - 47 * Math.cos(angle));
+			ctx.beginPath();
+			ctx.lineWidth = 2;
+			ctx.strokeStyle = "black";
+			ctx.moveTo(100 + 54 * Math.sin(angle),100 - 54 * Math.cos(angle));
+			ctx.lineTo(100 + 51 * Math.sin(angle),100 - 51 * Math.cos(angle));
+			ctx.stroke();
+			for(var n = 1;n <= 4; n ++){
+				var a = Math.PI * 2/60 * (i * 5 + n);
+				ctx.beginPath();
+				ctx.lineWidth = 1;
+				ctx.strokeStyle = "#555";
+				ctx.moveTo(100 + 54 * Math.sin(a),100 - 54 * Math.cos(a));
+				ctx.lineTo(100 + 52 * Math.sin(a),100 - 52 * Math.cos(a));
+				ctx.stroke();
+			}
+			
+		}
+		
+		setTimeout(draw, 1000);
+
+	}
+	setTimeout(draw, 0);
+</script>
+</html>
